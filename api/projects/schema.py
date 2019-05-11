@@ -42,7 +42,7 @@ class CreateProjectMutation(graphene.Mutation):
 class CreateTeam(graphene.Mutation):
     class Arguments:
         name = graphene.String()
-        project = graphene.Int()
+        project_id = graphene.Int()
 
     ok = graphene.Boolean()
     error_message = graphene.String()
@@ -50,10 +50,10 @@ class CreateTeam(graphene.Mutation):
 
     def mutate(self, info, **kwargs):
         try:
-            Project.objects.get(id=kwargs['project'], owner=info.context.user)
-            team = Project.objects.create(
+            Project.objects.get(id=kwargs['project_id'], owner=info.context.user)
+            team = Team.objects.create(
                 name=kwargs['name'],
-                project=kwargs['project']
+                project_id=kwargs['project_id']
             )
             return CreateTeam(ok=True, team=team)
         except Project.DoesNotExist:
