@@ -80,6 +80,7 @@ class CreateTeam(graphene.Mutation):
     ok = graphene.Boolean()
     error_message = graphene.String()
     team = graphene.Field(TeamNode)
+    team_member = graphene.Field(TeamMemberNode)
 
     def mutate(self, info, **kwargs):
         try:
@@ -88,7 +89,12 @@ class CreateTeam(graphene.Mutation):
                 name=kwargs['name'],
                 project_id=kwargs['project_id']
             )
-            return CreateTeam(ok=True, team=team)
+            team_member = TeamMember.objects.create(
+                user = info.context.user,
+                team = team,
+                rank = TeamMember.OWNER
+            )
+            return CreateTeam(ok=True, team=team, team_member=team_member)
         except Project.DoesNotExist:
             return CreateTeam(ok=False, error_message='You are not the project owner')
 
