@@ -10,6 +10,4 @@ export class HomeParallax extends Component {
         );
     }
 }
-
-
 export default HomeParallax;

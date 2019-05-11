@@ -15,9 +15,9 @@ class OrganizationAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'team', 'description', 'number', 'eta']
-    fields = ('name', 'team', 'description', 'eta')
-    list_display = ('name', 'team', 'description', 'number', 'eta')
+    search_fields = ['name', 'team', 'description', 'number', 'eta', 'status']
+    fields = ('name', 'team', 'description', 'eta', 'status')
+    list_display = ('name', 'team', 'description', 'number', 'eta', 'status')
 
 
 @admin.register(Team)
