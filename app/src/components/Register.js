@@ -2,18 +2,19 @@ import React, { Component } from "react";
 import { TextInput, Button } from 'react-materialize'
 
 
-export default class Login extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      email: "",
     };
   }
 
   validateForm() {
-    return this.state.username.length > 0 && this.state.password.length > 0;
+    return this.state.username.length > 0 && this.state.password.length > 0 && this.state.email.length > 0;
   }
 
   handleChange = event => {
@@ -25,14 +26,11 @@ export default class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.props.mutate({
-        variables: {password: this.state.password, username: this.state.username}
+        variables: {password: this.state.password, username: this.state.username, email: this.state.email}
       }).then(function(data) {
-          localStorage.setItem('token', data.data.tokenAuth.token);
-          window.location.href = '/app';
-        }
-      ).catch(function(err) {
-          alert('Incorrect data!');
-      });
+        
+        window.location.href = '/login';
+      })
   }
 
   render() {
@@ -49,6 +47,12 @@ export default class Login extends Component {
             label="Password"
             id="password"
             value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <TextInput
+            label="Email"
+            id="email"
+            value={this.state.email}
             onChange={this.handleChange}
           />
           <Button
