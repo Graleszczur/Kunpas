@@ -12,6 +12,10 @@ import renderLogout from './pages/renderLogout'
 import CreateProjectPanel from './pages/CreateProjectPanel'
 import NotFound from './pages/404'
 import Home from './pages/Home'
+import ProjectView from "./pages/ProjectView";
+import CreateTeamPanel from "./pages/CreateTeamPanel"
+
+
 
 function App() {
 
@@ -24,7 +28,10 @@ function App() {
               <Route exact path="/app" component={UserPanel}/>
               <Route exact path="/404" component={NotFound} />
               <Route exact path="/registration" component={renderRegister} />
+              <Route exact path="/app/projects-list" component={UserPanel} />
               <Route exact path="/app/add-project" component={CreateProjectPanel} />
+              <Route exact path="/app/add-team" component={CreateTeamPanel} />
+              <Route exact path="/app/project-teams" component={ProjectView} />
               <Redirect to="/404" />
           </Switch>
       </Router>

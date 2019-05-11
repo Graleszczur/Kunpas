@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export class UserProjectBar extends Component {
+export class AppTitleBar extends Component {
     render() {
         const styles = {
             search: {
@@ -12,11 +12,11 @@ export class UserProjectBar extends Component {
         }
         return (
             <div style={styles.search}>
-                <h2 className="header">Projects</h2>
+                <h2 className="header">{this.props.name}</h2>
                 <br/>
             </div>
 
         );
     }
 }
-export default UserProjectBar;
+export default AppTitleBar;

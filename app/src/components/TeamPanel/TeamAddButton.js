@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Row, Col} from 'react-materialize'
-export class UserProjectAddButton extends Component {
+
+export class TeamAddButton extends Component {
+
     render() {
         return (
             <div>
@@ -12,6 +14,7 @@ export class UserProjectAddButton extends Component {
                             className="red"
                             waves="light"
                             icon="add"
+                            onClick ={() => window.location.href = '/app/add-team'}
                         />
                     </Col>
 
@@ -22,4 +25,4 @@ export class UserProjectAddButton extends Component {
         );
     }
 }
-export default UserProjectAddButton;
+export default TeamAddButton;

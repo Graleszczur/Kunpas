@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import HomeFooter from "../components/HomeFooter";
-import HomeAppBar from "../components/HomeAppBar"
+import HomeFooter from "../components/Home/HomeFooter";
+import HomeAppBar from "../components/Home/HomeAppBar"
 
 export default class Register extends Component {
   componentDidMount(){
