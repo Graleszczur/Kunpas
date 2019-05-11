@@ -163,6 +163,7 @@ class Query(graphene.ObjectType):
     projects = graphene.List(ProjectNode)
     teams = graphene.List(TeamNode)
     team = graphene.Field(TeamNode, id=graphene.Int())
+    tasks = graphene.List(TaskNode, team_id=graphene.Int())
 
     def resolve_projects(self, info):
         return Project.objects.filter(owner=info.context.user)
@@ -173,4 +174,9 @@ class Query(graphene.ObjectType):
     def resolve_team(self, info, **kwargs):
         if kwargs['id'] is not None:
             return Team.objects.get(members=info.context.user, id=kwargs['id'])
+        return None
+
+    def resolve_tasks(self, info, **kwargs):
+        if kwargs['team_id'] is not None:
+            return Task.objects.filter(team_id=kwargs['team_id'])
         return None
