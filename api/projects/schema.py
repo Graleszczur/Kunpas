@@ -135,6 +135,10 @@ class Mutation(graphene.ObjectType):
 
 class Query(graphene.ObjectType):
     projects = graphene.List(ProjectNode)
+    teams = graphene.List(TeamNode)
 
     def resolve_projects(self, info):
         return Project.objects.filter(owner=info.context.user)
+
+    def resolve_teams(self, info):
+        return Team.objects.filter(members=info.context.user)
