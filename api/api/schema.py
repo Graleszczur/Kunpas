@@ -1,13 +1,15 @@
 import graphene
 import graphql_jwt
+import projects.schema
+import users.schema
 
 
-class Query(graphene.ObjectType):
-    pass
-
-
-class Mutation(graphene.ObjectType):
+class Mutation(projects.schema.Mutation):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+
+
+class Query(projects.schema.Query):
+    pass
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
