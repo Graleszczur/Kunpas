@@ -47,4 +47,4 @@ class Query(graphene.ObjectType):
     projects = graphene.List(ProjectNode)
 
     def resolve_projects(self, info):
-        return Project.objects.filter(users=info.context.user)
+        return Project.objects.filter(owner=info.context.user)
