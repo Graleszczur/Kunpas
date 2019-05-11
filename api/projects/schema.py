@@ -162,9 +162,15 @@ class Mutation(graphene.ObjectType):
 class Query(graphene.ObjectType):
     projects = graphene.List(ProjectNode)
     teams = graphene.List(TeamNode)
+    team = graphene.Field(TeamNode, id=graphene.Int())
 
     def resolve_projects(self, info):
         return Project.objects.filter(owner=info.context.user)
 
     def resolve_teams(self, info):
         return Team.objects.filter(members=info.context.user)
+
+    def resolve_team(self, info, **kwargs):
+        if kwargs['id'] is not None:
+            return Team.objects.get(members=info.context.user, id=kwargs['id'])
+        return None
