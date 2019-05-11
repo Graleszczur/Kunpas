@@ -36,9 +36,9 @@ class Task(models.Model):
     def number_prefix(self):
         return self.team.name[:4]
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.number = self.__class__.objects.filter(team=self.team).count() + 1
-        super(Task, self).save()
+        super(Task, self).save(*args, **kwargs )
 
 class TeamMember(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
