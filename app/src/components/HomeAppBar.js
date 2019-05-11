@@ -17,7 +17,7 @@ export class HomeAppBar extends Component {
                             Login
                         </NavItem>
                     </Link>
-                    <Link to="/login">
+                    <Link to="/registration">
                         <NavItem>
                             Register
                         </NavItem>
