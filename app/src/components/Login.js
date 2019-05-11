@@ -27,9 +27,12 @@ export default class Login extends Component {
     this.props.mutate({
         variables: {password: this.state.password, username: this.state.username}
       }).then(function(data) {
-        localStorage.setItem('token', data.data.tokenAuth.token)
-        window.location.href = '/app'
-      })
+          localStorage.setItem('token', data.data.tokenAuth.token);
+          window.location.href = '/app';
+        }
+      ).catch(function(err) {
+          alert('Incorrect data!');
+      });
   }
 
   render() {

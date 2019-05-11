@@ -63,9 +63,6 @@ ROOT_URLCONF = 'api.urls'
 
 GRAPHENE = {
     'SCHEMA': 'api.schema.schema',
-    'MIDDLEWARE': [
-        'graphql_jwt.middleware.JSONWebTokenMiddleware',
-    ],
 }
 
 AUTHENTICATION_BACKENDS = [
