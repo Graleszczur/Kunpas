@@ -1,23 +1,12 @@
 import React, {Component} from 'react';
-
+import {Parallax} from 'react-materialize'
 
 export class HomeParallax extends Component {
+
     render() {
+
         return (
-            <React.Fragment>
-                <div className="container">
-                    <div className="section">
-
-                        <div className="row">
-                            <div className="col s12 center">
-                                <h4>Home</h4>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </React.Fragment>
-
+            <h1>beka</h1>
         );
     }
 }

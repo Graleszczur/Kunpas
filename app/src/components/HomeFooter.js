@@ -16,6 +16,7 @@ export class HomeFooter extends Component {
             <React.Fragment>
                 <Footer style={stylesFooter} className="grey">
                 </Footer>
+
             </React.Fragment>
         );
     }

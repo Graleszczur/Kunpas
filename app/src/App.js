@@ -5,6 +5,7 @@ import {
     Switch,
     Redirect
 } from "react-router-dom";
+import UserPanel from './pages/UserPanel'
 import renderLogin from './pages/renderLogin'
 import renderRegister from './pages/renderRegister'
 import NotFound from './pages/404'
@@ -16,6 +17,8 @@ function App() {
           <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={renderLogin}/>
+              <Route exact path="/logout" component={renderLogin}/>
+              <Route exact path="/User" component={UserPanel}/>
               <Route exact path="/404" component={NotFound} />
               <Route exact path="/registration" component={renderRegister} />
               <Redirect to="/404" />
