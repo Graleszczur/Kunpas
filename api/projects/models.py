@@ -50,5 +50,5 @@ class TeamMember(models.Model):
     rank = models.CharField(
         max_length=2,
         choices=RANK_CHOICES,
-        default=NIGGA,
+        default=WORKER,
     )
