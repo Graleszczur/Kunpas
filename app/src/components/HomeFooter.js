@@ -6,9 +6,12 @@ export class HomeFooter extends Component {
     render() {
         return (
             <React.Fragment>
-                <Footer className="grey">
-                    <p className="grey-text text-lighten-4">Made with Materialize</p>
+                <Footer
+                    copyrights="Made with Materialize"
+                    className="page-footer grey"
+                >
                 </Footer>
+
             </React.Fragment>
         );
     }
