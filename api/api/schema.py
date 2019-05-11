@@ -4,7 +4,7 @@ import projects.schema
 import users.schema
 
 
-class Mutation(projects.schema.Mutation):
+class Mutation(projects.schema.Mutation, users.schema.Mutation):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
 
 
