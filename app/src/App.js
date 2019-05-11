@@ -1,18 +1,24 @@
 import React from 'react';
-import Login from './components/Login'
-import LOGIN_USER from "./Schema"
-import { Mutation } from 'react-apollo'
-
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect
+} from "react-router-dom";
+import renderLogin from './pages/renderLogin'
+import NotFound from './pages/404'
+import Home from './pages/Home'
 
 function App() {
   return (
-    <div className="App">
-    {localStorage.getItem('token') === null &&
-          <Mutation mutation={LOGIN_USER}>
-            {(login, { data }) => <Login mutate={login} /> }
-          </Mutation>
-    }
-    </div>
+      <Router>
+          <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={renderLogin}/>
+              <Route exact path="/404" component={NotFound} />
+              <Redirect to="/404" />
+          </Switch>
+      </Router>
   );
 }
 
