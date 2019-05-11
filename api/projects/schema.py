@@ -92,11 +92,38 @@ class CreateTeam(graphene.Mutation):
             return CreateTeam(ok=False, error_message='You are not the project owner')
 
 
+class EditTaskMutation(graphene.Mutation):
+    class Arguments:
+        task_id = graphene.Int()
+        name = graphene.String()
+        description = graphene.String()
+        eta = graphene.DateTime()
+        status = graphene.Boolean()
+
+    ok = graphene.Boolean()
+    task = graphene.Field(TaskNode)
+    error_message = graphene.String()
+
+    def mutate(self, info, **kwargs):
+        try:
+            task = Task.objects.get(id=kwargs['task_id'])
+            try:
+                TeamMember.objects.get(user=info.context.user, team=task.team, rank__in=[TeamMember.OWNER, TeamMember.MANAGER])
+                Task.objects.filter(id=kwargs.pop('task_id')).update(**kwargs)
+                return EditTaskMutation(task=Task.objects.get(id=task.id), ok=True)
+            except TeamMember.DoesNotExist:
+                return EditTaskMutation(ok=False, error_message='You do not have permission to edit this task')
+        except Task.DoesNotExist:
+            return EditTaskMutation(ok=False, error_message='There is no such task')
+
+
+
 
 class Mutation(graphene.ObjectType):
     create_project = CreateProjectMutation.Field()
-    invite_mutation = InviteMutation.Field()
+    invite = InviteMutation.Field()
     create_team = CreateTeam.Field()
+    edit_task = EditTaskMutation.Field()
 
 
 class Query(graphene.ObjectType):

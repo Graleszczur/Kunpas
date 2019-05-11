@@ -27,6 +27,7 @@ class Task(models.Model):
     description = models.TextField()
     number = models.PositiveIntegerField()
     eta = models.DateTimeField(auto_now=False, auto_now_add=False)
+    status = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.number_prefix}-{self.number}\n{self.name}'
