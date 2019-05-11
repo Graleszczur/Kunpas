@@ -7,6 +7,7 @@ class Project(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
+    graph = models.ForeignKey('projects.Graph', null=True, blank=True, on_delete=models.CASCADE, related_name='project')
 
     def __str__(self):
         return self.name
@@ -40,6 +41,7 @@ class Task(models.Model):
         self.number = self.__class__.objects.filter(team=self.team).count() + 1
         super(Task, self).save(*args, **kwargs )
 
+
 class TeamMember(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
@@ -56,3 +58,7 @@ class TeamMember(models.Model):
         choices=RANK_CHOICES,
         default=WORKER,
     )
+
+class Graph(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    file = models.FileField(upload_to='graphs/')
