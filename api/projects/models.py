@@ -7,7 +7,7 @@ class Project(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
-    graph = models.ForeignKey('projects.Graph', on_delete=models.CASCADE, related_name='project')
+    graph = models.ForeignKey('projects.Graph', null=True, blank=True, on_delete=models.CASCADE, related_name='project')
 
     def __str__(self):
         return self.name
