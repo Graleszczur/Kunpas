@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import {CollectionItem, Icon} from "react-materialize";
 
-export class ProjectListItem extends Component {
+export class AppListItem extends Component {
     //ikona w zaleznosci od main jezyka
     render() {
+        console.log(this.props.dir);
         return (
-            <CollectionItem href={'/login'} className="avatar">
+            <CollectionItem href={this.props.dir} className="avatar">
                 <img src="https://i.imgur.com/MVdkcM6.png" alt="" className="circle" />
                 <span className="title">
-                    Project Title
+                    {this.props.title}
                 </span>
                 <p>
-                    Project Description
-
+                    {this.props.description}
                 </p>
                 <a href="javascript:void(0)" className="secondary-content">
                     <Icon>
@@ -23,4 +23,4 @@ export class ProjectListItem extends Component {
         );
     }
 }
-export default ProjectListItem;
+export default AppListItem;
