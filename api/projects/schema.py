@@ -39,8 +39,31 @@ class CreateProjectMutation(graphene.Mutation):
         return CreateProjectMutation(project=project)
 
 
+class CreateTeam(graphene.Mutation):
+    class Arguments:
+        name = graphene.String()
+        project = graphene.Int()
+
+    ok = graphene.Boolean()
+    error_message = graphene.String()
+    team = graphene.Field(TeamNode)
+
+    def mutate(self, info, **kwargs):
+        try:
+            Project.objects.get(id=kwargs['project'], owner=info.context.user)
+            team = Project.objects.create(
+                name=kwargs['name'],
+                project=kwargs['project']
+            )
+            return CreateTeam(ok=True, team=team)
+        except Project.DoesNotExist:
+            return CreateTeam(ok=False, error_message='You are not the project owner')
+
+
+
 class Mutation(graphene.ObjectType):
     create_project = CreateProjectMutation.Field()
+    create_team = CreateTeam.Field()
 
 
 class Query(graphene.ObjectType):
