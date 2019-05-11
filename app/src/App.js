@@ -13,6 +13,7 @@ import CreateProjectPanel from './pages/CreateProjectPanel'
 import NotFound from './pages/404'
 import Home from './pages/Home'
 
+
 function App() {
 
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route exact path="/app" component={UserPanel}/>
               <Route exact path="/404" component={NotFound} />
               <Route exact path="/registration" component={renderRegister} />
+              <Route exact path="/app/projects" component={UserPanel} />
               <Route exact path="/app/add-project" component={CreateProjectPanel} />
               <Redirect to="/404" />
           </Switch>

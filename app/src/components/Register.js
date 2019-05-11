@@ -56,7 +56,7 @@ export default class Register extends Component {
             onChange={this.handleChange}
           />
           <Button
-            type="Login"
+            type="Register"
             waves="light"
             disabled={!this.validateForm()}
           >

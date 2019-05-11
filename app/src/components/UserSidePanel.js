@@ -10,7 +10,7 @@ export class UserSidePanel extends Component {
                     image: 'https://i.imgur.com/YBg8z1N.jpg',
                     name: 'Bartosz Gralewski'
                 }} />
-                <SideNavItem href="/" icon="content_paste">
+                <SideNavItem href="/app/projects" icon="content_paste">
                     Projects
                 </SideNavItem>
                 <SideNavItem divider />

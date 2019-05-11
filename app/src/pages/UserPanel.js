@@ -11,7 +11,6 @@ export class UserPanel extends Component {
     render() {
         return (
             <React.Fragment>
-
                 <UserProjectBar/>
                 <UserSearchBar/>
                 <UserSidePanel/>
