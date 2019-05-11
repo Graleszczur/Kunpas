@@ -38,9 +38,42 @@ class CreateProjectMutation(graphene.Mutation):
         )
         return CreateProjectMutation(project=project)
 
+class TeamMemberEnum(graphene.Enum):
+    OWNER = TeamMember.OWNER
+    MANAGER = TeamMember.MANAGER
+    WORKER = TeamMember.WORKER
+
+
+class InviteMutation(graphene.Mutation):
+    class Arguments:
+        user_id = graphene.Int()
+        team_id = graphene.Int()
+        rank = TeamMemberEnum()
+
+    ok = graphene.Boolean()
+    error = graphene.String()
+    member = graphene.Field(TeamMemberNode)
+
+    def mutate(self, info, **kwargs):
+        try:
+            TeamMember.objects.get(user_id=info.context.user, team_id=kwargs['team_id'], rank__in=[TeamMember.OWNER, TeamMember.MANAGER])
+            try:
+                TeamMember.objects.get(user_id=kwargs['user_id'], team_id=kwargs['team_id'])
+                return InviteMutation(ok=False, error='An invited guest is already in this team')
+            except TeamMember.DoesNotExist:
+                member = TeamMember.objects.create(
+                    user_id=kwargs['user_id'],
+                    team=Team.objects.get(id=kwargs['team_id']),
+                    rank=kwargs['rank'],
+                )
+                return InviteMutation(ok=True, member=member)
+        except TeamMember.DoesNotExist:
+            return InviteMutation(ok=False, error='You are not the project owner or manager')
+
 
 class Mutation(graphene.ObjectType):
     create_project = CreateProjectMutation.Field()
+    invite_mutation = InviteMutation.Field()
 
 
 class Query(graphene.ObjectType):
