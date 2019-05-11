@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from graphene_django.views import GraphQLView
+from projects.views import Pdf
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^graphql$', GraphQLView.as_view(graphiql=True)),
+    path('render/pdf/<id>', Pdf.as_view())
 ]
