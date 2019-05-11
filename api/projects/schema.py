@@ -1,5 +1,6 @@
 from graphene_django import DjangoObjectType
 from projects.models import Project, Team, Task, TeamMember
+from django.utils import timezone
 import graphene
 
 
@@ -92,11 +93,38 @@ class CreateTeam(graphene.Mutation):
             return CreateTeam(ok=False, error_message='You are not the project owner')
 
 
+class CreateTask(graphene.Mutation):
+    class Arguments:
+        name = graphene.String()
+        team_id = graphene.Int()
+        description = graphene.String()
+        eta = graphene.DateTime()
+
+    ok = graphene.Boolean()
+    error_message = graphene.String()
+    task = graphene.Field(TaskNode)
+
+    def mutate(self, info, **kwargs):
+        try:
+            TeamMember.objects.get(team_id=kwargs['team_id'], user=info.context.user, rank__in=[TeamMember.OWNER, TeamMember.MANAGER])
+            if kwargs['eta'] < timezone.now():
+                return CreateTeam(ok=False, error_message="ETA can't be in the past")
+            task = Task.objects.create(
+                name=kwargs['name'],
+                team_id=kwargs['team_id'],
+                description=kwargs['description'],
+                eta=kwargs['eta']
+            )
+            return CreateTask(ok=True, task=task)
+        except TeamMember.DoesNotExist:
+            return CreateTask(ok=False, error_message="You can't create a task")
+
 
 class Mutation(graphene.ObjectType):
     create_project = CreateProjectMutation.Field()
-    invite_mutation = InviteMutation.Field()
     create_team = CreateTeam.Field()
+    create_task = CreateTask.Field()
+    invite_mutation = InviteMutation.Field()
 
 
 class Query(graphene.ObjectType):
