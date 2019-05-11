@@ -1,5 +1,5 @@
 from django.contrib import admin
-from projects.models import Project, Team, Task, TeamMember
+from projects.models import Project, Team, Task, TeamMember, Graph
 
 class TeamMemberInline(admin.TabularInline):
     model = TeamMember
@@ -7,10 +7,15 @@ class TeamMemberInline(admin.TabularInline):
 
 
 @admin.register(Project)
-class OrganizationAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'owner', 'description']
-    fields = ('name', 'owner', 'description')
-    list_display = ('name', 'owner', 'description')
+class ProjectAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'owner', 'description', 'graph']
+    fields = ('name', 'owner', 'description', 'graph')
+    list_display = ('name', 'owner', 'description', 'graph')
+
+
+@admin.register(Graph)
+class GraphAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Task)
