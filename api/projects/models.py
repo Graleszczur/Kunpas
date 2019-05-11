@@ -27,6 +27,7 @@ class Task(models.Model):
     description = models.TextField()
     number = models.PositiveIntegerField()
     eta = models.DateTimeField(auto_now=False, auto_now_add=False)
+    status = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.number_prefix}-{self.number}\n{self.name}'
@@ -35,9 +36,9 @@ class Task(models.Model):
     def number_prefix(self):
         return self.team.name[:4]
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.number = self.__class__.objects.filter(team=self.team).count() + 1
-        super(Task, self).save()
+        super(Task, self).save(*args, **kwargs )
 
 class TeamMember(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
