@@ -12,9 +12,7 @@ export class ContentTable extends Component {
                 <Row>
                     <Col s={6} offset={'l4'}>
                         <Collection>
-                            <AppListItem title={this.props.title} description={this.props.description} dir={this.props.dir}/>
-                            <AppListItem title={this.props.title} description={this.props.description} dir={this.props.dir}/>
-                            <AppListItem title={this.props.title} description={this.props.description} dir={this.props.dir}/>
+                              {this.props.objects}
                         </Collection>
                     </Col>
                 </Row>

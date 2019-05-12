@@ -11,9 +11,21 @@ class ProjectNode(DjangoObjectType):
 
 
 class TeamNode(DjangoObjectType):
+    description = graphene.String()
+    project_id = graphene.Int()
+
     class Meta:
         model = Team
+        only_fields = ('id', 'description', 'name')
 
+    def resolve_description(self, info):
+        names = []
+        for user in self.members.all():
+            names.append(user.first_name + user.last_name)
+        return ', '.join(names)
+
+    def resolve_project_id(self, info):
+        return self.project.id
 
 class TaskNode(DjangoObjectType):
     class Meta:
@@ -180,18 +192,24 @@ class Mutation(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    projects = graphene.List(ProjectNode)
-    teams = graphene.List(TeamNode)
+    projects = graphene.List(ProjectNode, text=graphene.Argument(graphene.String, required=False))
+    teams = graphene.List(TeamNode, project_id=graphene.Argument(graphene.String),
+        text=graphene.Argument(graphene.String, required=False),
+    )
     team = graphene.Field(TeamNode, id=graphene.Int())
     tasks = graphene.List(TaskNode, team_id=graphene.Int())
     task = graphene.Field(TaskNode, id=graphene.Int())
 
 
-    def resolve_projects(self, info):
+    def resolve_projects(self, info, text=None):
+        if text:
+            return Project.objects.filter(owner=info.context.user, name__startswith=text)
         return Project.objects.filter(owner=info.context.user)
 
-    def resolve_teams(self, info):
-        return Team.objects.filter(members=info.context.user)
+    def resolve_teams(self, info, project_id, text=None):
+        if text:
+            return Team.objects.filter(members=info.context.user, project_id=project_id, name__startswith=text)
+        return Team.objects.filter(members=info.context.user, project_id=project_id)
 
     def resolve_team(self, info, **kwargs):
         if kwargs['id'] is not None:

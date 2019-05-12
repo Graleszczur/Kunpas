@@ -7,7 +7,7 @@ import 'materialize-css/dist/css/materialize.min.css'
 import ApolloClient from "apollo-boost";
 
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: "http://localhost:8000/graphql",
   headers: {
     authorization: `jwt ${localStorage.getItem('token')}`,
