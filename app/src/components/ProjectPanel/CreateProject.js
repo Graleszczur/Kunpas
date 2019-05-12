@@ -27,14 +27,15 @@ export default class CreateProject extends Component {
     this.props.mutate({
         variables: {description: this.state.description, name: this.state.name}
       }).then(function(data) {
-        window.location.href = '/app/projects';
+        window.location.href = '/app/projects-list';
       })
   }
 
   render() {
     return (
       <div className="Login">
-        <form style={{display: 'inline-block', paddingTop: "100px"}} onSubmit={this.handleSubmit}>
+        <h2>Create a Project</h2>
+        <form style={{display: 'inline-block', paddingTop: "40px"}} onSubmit={this.handleSubmit}>
           <TextInput
             label="Name"
             id="name"
@@ -48,7 +49,7 @@ export default class CreateProject extends Component {
             onChange={this.handleChange}
           />
           <Button
-            type="Login"
+            type="Create"
             waves="light"
             disabled={!this.validateForm()}
           >
