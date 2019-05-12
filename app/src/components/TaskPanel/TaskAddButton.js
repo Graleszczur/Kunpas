@@ -5,7 +5,7 @@ export class TaskAddButton extends Component {
 
     render() {
         return (
-            <div style={{paddingTop: '12%',  paddingLeft: '85%'}}>
+            <div style={{paddingTop: '2%',  paddingLeft: '80%'}}>
                 <Button
                     floating
                     large

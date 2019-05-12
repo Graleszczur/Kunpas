@@ -6,14 +6,17 @@ export class UserSidePanel extends Component {
         return (
             <SideNav>
                 <SideNavItem userView user={{
-                    background: 'https://i.imgur.com/M7rr0PP.jpg',
-                    image: 'https://i.imgur.com/YBg8z1N.jpg',
-                    name: 'Bartosz Gralewski'
+                    background: 'https://i.imgur.com/HWbKDkW.jpg',
+                    image: 'https://i.imgur.com/rOQS9LT.png',
+                    name: 'John Biznes'
                 }} />
-                <SideNavItem href="/app/projects-list" icon="content_paste">
+                <SideNavItem href="/app/projects-list" icon="list">
                     Projects
                 </SideNavItem>
-                <SideNavItem divider />
+                <SideNavItem href="/app/projects-list" icon="content_paste">
+                    Generate hierarchy graph
+                </SideNavItem>
+                <SideNavItem style={{marginTop: '130%'}} divider />
                 <SideNavItem waves href={"/logout"} icon="build">
                     Logout
                 </SideNavItem>
