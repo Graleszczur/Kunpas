@@ -13,10 +13,7 @@ export class UserSidePanel extends Component {
                 <SideNavItem href="/app/projects-list" icon="list">
                     Projects
                 </SideNavItem>
-                <SideNavItem href="/app/generate-graph" icon="content_paste">
-                    Generate hierarchy graph
-                </SideNavItem>
-                <SideNavItem style={{marginTop: '130%'}} divider />
+                <SideNavItem style={{marginTop: '150%'}} divider />
                 <SideNavItem waves href={"/logout"} icon="build">
                     Logout
                 </SideNavItem>

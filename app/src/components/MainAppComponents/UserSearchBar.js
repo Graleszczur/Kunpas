@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Navbar, NavItem, TextInput} from 'react-materialize'
+import {Navbar, Icon, NavItem, TextInput} from 'react-materialize'
 
 export class UserSearchBar extends Component {
   constructor(props) {
@@ -23,12 +23,15 @@ export class UserSearchBar extends Component {
         }
         return (
                 <div style={styles.search} >
-                    <Navbar className={'grey'} style={{ borderRadius: "25px"}}  brand={<a />} alignLinks="right">
-                    <TextInput
-                      label="Projects"
-                      id="project"
-                      onChange={this.handleChange}
-                    />
+                    <Navbar className={'grey'} style={{ borderRadius: "25px"}}  brand={<a />} alignLinks="left">
+                        <Icon>search</Icon>
+                            <TextInput
+                                noLayout = {true}
+                                id="project"
+                                onChange={this.handleChange}
+                            />
+
+
                     </Navbar>
                 </div>
         );

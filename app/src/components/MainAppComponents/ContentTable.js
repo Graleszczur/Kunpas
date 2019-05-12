@@ -10,6 +10,7 @@ export class ContentTable extends Component {
                 <Row></Row>
                 <Row></Row>
                 <Row>
+                    
                     <Col s={6} offset={'l4'}>
                         <Collection>
                               {this.props.objects}
