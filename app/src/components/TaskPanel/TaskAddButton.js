@@ -12,7 +12,7 @@ export class TaskAddButton extends Component {
                     className="red"
                     waves="light"
                     icon="add"
-                    onClick ={() => window.location.href = '/app/add-task'}
+                    onClick ={() => window.location.href = '/app/add-task?objectId=' + this.props.objectId}
                 />
             </div>
 
