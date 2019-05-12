@@ -163,9 +163,9 @@ class SendSmsMut(graphene.Mutation):
     status = graphene.String()
 
     def mutate(self, info, **kwargs):
-        if sned_sms
+        if kwargs.get('send_sms'):
             send(kwargs['phone_number'], kwargs['message'])
-        if send_email
+        if kwargs.get('send_email'):
             sendEmail(kwargs['email'], kwargs['title'], kwargs['message'])
         return SendSmsMut(status='OK')
 
