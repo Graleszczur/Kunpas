@@ -30,6 +30,7 @@ class TeamNode(DjangoObjectType):
 class TaskNode(DjangoObjectType):
     class Meta:
         model = Task
+        only_fields = ('status', 'name', 'id', 'description', 'eta')
 
 
 class TeamMemberNode(DjangoObjectType):
@@ -185,6 +186,19 @@ class SendEmailMut(graphene.Mutation):
         return SendEmailMut(status='OK')
 
 
+class SwitchStatus(graphene.Mutation):
+    class Arguments:
+        task_id = graphene.Int()
+
+    status = graphene.String()
+
+    def mutate(self, info, **kwargs):
+        task = Task.objects.get(id=kwargs['task_id'])
+        task.status = not task.status
+        task.save()
+        return SwitchStatus(status=task.status)
+
+
 class Mutation(graphene.ObjectType):
     create_project = CreateProjectMutation.Field()
     invite = InviteMutation.Field()
@@ -193,6 +207,7 @@ class Mutation(graphene.ObjectType):
     create_task = CreateTask.Field()
     send_sms = SendSmsMut.Field()
     send_email = SendEmailMut.Field()
+    switch_status = SwitchStatus.Field()
 
 
 class Query(graphene.ObjectType):
