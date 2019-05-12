@@ -5,10 +5,13 @@ import { TextInput, Button, Textarea } from 'react-materialize'
 export default class CreateTask extends Component {
     constructor(props) {
         super(props);
-
+        var url = new URL(window.location.href);
+        var c = url.searchParams.get("objectId");
         this.state = {
             name: "",
             description: "",
+            teamId: c,
+            eta: ""
         };
     }
 
@@ -25,16 +28,19 @@ export default class CreateTask extends Component {
     handleSubmit = event => {
         event.preventDefault();
         this.props.mutate({
-            variables: {description: this.state.description, name: this.state.name}
+            variables: {description: this.state.description, name: this.state.name, eta: this.state.eta, teamId: this.state.teamId}
         }).then(function(data) {
-            window.location.href = '/app/projects';
-        })
+            window.location.href = '/app/task';
+        }).catch(function(err) {
+            alert(err);
+        });
     }
 
     render() {
         return (
             <div className="Login">
                 <form style={{display: 'inline-block', paddingTop: "100px"}} onSubmit={this.handleSubmit}>
+                <h2> Create a Task</h2>
                     <TextInput
                         label="Task title"
                         id="name"
@@ -47,12 +53,18 @@ export default class CreateTask extends Component {
                         value={this.state.description}
                         onChange={this.handleChange}
                     />
+                    <TextInput
+                        label="ETA"
+                        id="eta"
+                        value={this.state.eta}
+                        onChange={this.handleChange}
+                    />
                     <Button
                         type="Login"
                         waves="light"
                         disabled={!this.validateForm()}
                     >
-                        Add task
+                        Create
                     </Button>
                 </form>
             </div>

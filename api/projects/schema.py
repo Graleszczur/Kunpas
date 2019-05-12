@@ -142,7 +142,7 @@ class CreateTask(graphene.Mutation):
         name = graphene.String()
         team_id = graphene.Int()
         description = graphene.String()
-        eta = graphene.DateTime()
+        eta = graphene.Date()
 
     ok = graphene.Boolean()
     error_message = graphene.String()
@@ -151,8 +151,6 @@ class CreateTask(graphene.Mutation):
     def mutate(self, info, **kwargs):
         try:
             TeamMember.objects.get(team_id=kwargs['team_id'], user=info.context.user, rank__in=[TeamMember.OWNER, TeamMember.MANAGER])
-            if kwargs['eta'] < timezone.now():
-                return CreateTeam(ok=False, error_message="ETA can't be in the past")
             task = Task.objects.create(
                 name=kwargs['name'],
                 team_id=kwargs['team_id'],
@@ -197,7 +195,7 @@ class Query(graphene.ObjectType):
         text=graphene.Argument(graphene.String, required=False),
     )
     team = graphene.Field(TeamNode, id=graphene.Int())
-    tasks = graphene.List(TaskNode, team_id=graphene.Int())
+    tasks = graphene.List(TaskNode, team_id=graphene.Int(), text=graphene.Argument(graphene.String, required=False))
     task = graphene.Field(TaskNode, id=graphene.Int())
 
 
@@ -217,9 +215,9 @@ class Query(graphene.ObjectType):
         return None
 
     def resolve_tasks(self, info, **kwargs):
-      if kwargs['team_id'] is not None:
-          return Task.objects.filter(team_id=kwargs['team_id'])
-      return None
+      if kwargs.get('text') is not None:
+          return Task.objects.filter(team_id=kwargs['team_id'], name__startswith=kwargs['text'])
+      return Task.objects.filter(team_id=kwargs['team_id'])
 
     def resolve_task(self, info, **kwargs):
         return Task.objects.get(id=kwargs['id'])
