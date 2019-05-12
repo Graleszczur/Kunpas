@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from PIL import Image
 
 # Create your models here.
 
@@ -7,7 +8,6 @@ class Project(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
-    graph = models.ForeignKey('projects.Graph', null=True, blank=True, on_delete=models.CASCADE, related_name='project')
 
     def __str__(self):
         return self.name
@@ -38,8 +38,14 @@ class Task(models.Model):
         return self.team.name[:4]
 
     def save(self, *args, **kwargs):
-        self.number = self.__class__.objects.filter(team=self.team).count() + 1
+        if not self.number:
+            self.number = self.__class__.objects.filter(team=self.team).count() + 1
         super(Task, self).save(*args, **kwargs )
+
+
+class RequiredTask(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='need')
+    required_task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required')
 
 
 class TeamMember(models.Model):
@@ -61,4 +67,5 @@ class TeamMember(models.Model):
 
 class Graph(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    file = models.FileField(upload_to='graphs/')
+    file = models.ImageField(upload_to='graphs/')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
