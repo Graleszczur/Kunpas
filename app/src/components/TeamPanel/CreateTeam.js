@@ -49,7 +49,7 @@ export default class CreateTeam extends Component {
                         waves="light"
                         disabled={!this.validateForm()}
                     >
-                        Add team
+                        Create
                     </Button>
                 </form>
             </div>

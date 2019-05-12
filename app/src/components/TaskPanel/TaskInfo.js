@@ -8,16 +8,16 @@ export class TaskInfo extends Component {
             <div style={{paddingLeft: '20%'}}>
                 <Collection>
                     <CollectionItem>
-                        Project: Home Box
+                        {this.props.name}
                     </CollectionItem>
                     <CollectionItem style={{marginTop:'5px'}}>
-                        Description: Very good, very  <br/> profitable IoT project
+                        {this.props.description}
                     </CollectionItem>
                     <CollectionItem>
-                        Deadline: 21.07.2013
+                        {this.props.eta}
                     </CollectionItem>
                     <CollectionItem>
-                        Is Done?: No
+                        {this.props.status}
                     </CollectionItem>
                 </Collection>
             </div>

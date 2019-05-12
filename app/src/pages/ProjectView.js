@@ -40,7 +40,7 @@ export class ProjectView extends Component {
         variables: {text: this.state.query, projectId: this.state.projectId}
       }).then(response =>{
         this.setState({
-          data: response.data.teams.map(team => <AppListItem key={team.id} title={team.name} description={team.description} dir={'/app/project-teams?objectId=' + team.id} />)
+          data: response.data.teams.map(team => <AppListItem key={team.id} title={team.name} description={team.description} dir={'/app/team-tasks?objectId=' + team.id} />)
         });
       })
   }
@@ -52,7 +52,7 @@ export class ProjectView extends Component {
       variables: {projectId: this.state.projectId}
     }).then(response =>{
       this.setState({
-        data: response.data.teams.map(team => <AppListItem key={team.id} title={team.name} description={team.description} dir={'/app/project-teams?objectId=' + team.id} />)
+        data: response.data.teams.map(team => <AppListItem key={team.id} title={team.name} description={team.description} dir={'/app/team-tasks?objectId=' + team.id} />)
       });
     })
   }
