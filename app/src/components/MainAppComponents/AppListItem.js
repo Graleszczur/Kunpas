@@ -4,7 +4,6 @@ import {CollectionItem, Icon} from "react-materialize";
 export class AppListItem extends Component {
     //ikona w zaleznosci od main jezyka
     render() {
-        console.log(this.props.dir);
         return (
             <CollectionItem href={this.props.dir} className="avatar">
                 <img src="https://i.imgur.com/MVdkcM6.png" alt="" className="circle" />
