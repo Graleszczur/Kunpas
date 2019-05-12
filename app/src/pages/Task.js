@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import UserSidePanel from '../components/MainAppComponents/UserSidePanel'
 import AppTitleBar from "../components/MainAppComponents/AppTitleBar";
-import TaskAddButton from '../components/TaskPanel/TaskAddButton'
 import TaskFooter from '../components/TaskPanel/TaskFooter'
 import TaskInfo from "../components/TaskPanel/TaskInfo";
 

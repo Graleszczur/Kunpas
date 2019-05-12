@@ -17,6 +17,8 @@ import CreateTeamPanel from "./pages/CreateTeamPanel"
 import TeamTasks from "./pages/TeamTasks";
 import CreateTaskPanel from "./pages/CreateTaskPanel";
 import Task from './pages/Task'
+import GenerateGraphView from "./pages/GenerateGraphView";
+import EditTask from "./pages/EditTask";
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
               <Route exact path="/app/team-tasks" component={TeamTasks} />
               <Route exact path="/app/add-task" component={CreateTaskPanel} />
               <Route exact path="/app/task" component={Task} />
+              <Route exact path="/app/generate-graph" component={GenerateGraphView} />
+              <Route exact path="/app/task/edit" component={EditTask} />
               <Redirect to="/404" />
           </Switch>
       </Router>

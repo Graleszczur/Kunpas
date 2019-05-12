@@ -5,7 +5,7 @@ export class TaskFooter extends Component {
     render() {
         return (
             <div style={{paddingLeft: '40%', paddingTop: '4%'}}>
-                <Button waves="light" style={{marginRight: '50px'}}>
+                <Button onClick ={() => window.location.href = '/app/task/edit'} waves="light" style={{marginRight: '50px'}}>
                    Edit
                     <Icon left>
                         edit
