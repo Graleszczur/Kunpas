@@ -22,7 +22,7 @@ class CreateUserMutation(graphene.Mutation):
     def mutate(self, info, **kwargs):
         if User.objects.filter(Q(username=kwargs['username']) | Q(email=kwargs['email'])).exists():
             return CreateUserMutation(error='Username or email is already taken')
-        user = User.objects.create_user(kwargs['username'], kwargs['email'], kwargs['password'], kwargs.get('phone_number', ''))
+        user = User.objects.create_user(kwargs['username'], kwargs['email'], kwargs['password'])
         return CreateUserMutation(user=user)
 
 

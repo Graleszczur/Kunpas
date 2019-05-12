@@ -30,7 +30,7 @@ export default class CreateTask extends Component {
         this.props.mutate({
             variables: {description: this.state.description, name: this.state.name, eta: this.state.eta, teamId: this.state.teamId}
         }).then(function(data) {
-            window.location.href = '/app/task';
+            window.location.href = '/app/task?objectId=' + data.data.createTask.task.id;
         }).catch(function(err) {
             alert(err);
         });

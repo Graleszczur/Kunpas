@@ -18,10 +18,10 @@ export class Home extends Component {
                 <HomeAppBar/>
 
                 <div style={{position: 'relative'}}>
-                    <img style={{width: '100%',height:'100%'}} src={'https://i.imgur.com/AZOJig1.jpg'} alt={'maciek'}/>
+                    <img style={{width: '100%',height:'100%'}} src={'https://i.imgur.com/15j7CKn.jpg'} alt={'maciek'}/>
                     <div style={{position: 'absolute',
                         left: 0,
-                        top: '30%',
+                        top: '25%',
                         width: '100%',
                         color: 'white',
                         textAlign: 'center',
@@ -31,10 +31,11 @@ export class Home extends Component {
                     </div>
                     <div style={{position: 'absolute',
                         left: 0,
-                        top: '45%',
+                        top: '40%',
                         width: '100%',
                         color: 'white',
                         textAlign: 'center',
+                        textShadow: '1px 1px black',
                         fontSize: '60px'}}>
                         <Button
                             node="a"
