@@ -21,16 +21,22 @@ export class TaskFooter extends Component {
                         edit
                     </Icon>
                 </Button>
-                <Button waves="light" style={{marginRight: '50px'}}>
-                    Send Notifications
-                    <Icon left>
-                        notifications
-                    </Icon>
-                </Button>
                 <Button waves="light" style={{marginRight: '50px'}} onClick={this.handleSubmit}>
                     Mark as done
                     <Icon left>
                         check
+                    </Icon>
+                </Button>
+                <Button waves="light" style={{marginRight: '50px'}}>
+                    Send email
+                    <Icon left>
+                        mail
+                    </Icon>
+                </Button>
+                <Button waves="light" style={{marginRight: '50px'}}>
+                    Send SMS
+                    <Icon left>
+                        textsms
                     </Icon>
                 </Button>
             </div>
