@@ -13,7 +13,7 @@ export class UserSidePanel extends Component {
                 <SideNavItem href="/app/projects-list" icon="list">
                     Projects
                 </SideNavItem>
-                <SideNavItem href="/app/projects-list" icon="content_paste">
+                <SideNavItem href="/app/generate-graph" icon="content_paste">
                     Generate hierarchy graph
                 </SideNavItem>
                 <SideNavItem style={{marginTop: '130%'}} divider />
