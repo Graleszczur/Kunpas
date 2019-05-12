@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import { TextInput, Button, Textarea } from 'react-materialize'
 
 
-export default class CreateTeam extends Component {
+export default class CreateTask extends Component {
     constructor(props) {
         super(props);
-        var url = new URL(window.location.href);
-        var c = url.searchParams.get("projectId");
+
         this.state = {
             name: "",
             description: "",
-            projectId: c,
         };
     }
 
@@ -27,9 +25,9 @@ export default class CreateTeam extends Component {
     handleSubmit = event => {
         event.preventDefault();
         this.props.mutate({
-            variables: {projectId: this.state.projectId, name: this.state.name}
+            variables: {description: this.state.description, name: this.state.name}
         }).then(function(data) {
-            window.location.href = '/app/project-teams?objectId='+ data.data.createTeam.team.projectId;
+            window.location.href = '/app/projects';
         })
     }
 
@@ -37,19 +35,24 @@ export default class CreateTeam extends Component {
         return (
             <div className="Login">
                 <form style={{display: 'inline-block', paddingTop: "100px"}} onSubmit={this.handleSubmit}>
-                  <h2>Create a Team</h2>
                     <TextInput
-                        label="Team Name"
+                        label="Task title"
                         id="name"
                         value={this.state.name}
                         onChange={this.handleChange}
                     />
+                    <Textarea
+                        label="Description"
+                        id="description"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                    />
                     <Button
-                        type="Create"
+                        type="Login"
                         waves="light"
                         disabled={!this.validateForm()}
                     >
-                        Add team
+                        Add task
                     </Button>
                 </form>
             </div>

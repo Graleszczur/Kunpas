@@ -62,7 +62,7 @@ export class ProjectView extends Component {
                 <AppTitleBar name={'Teams'}/>
                 <UserSearchBar handleQuery={this.handleQuery}/>
                 <UserSidePanel/>
-                <ContentTable title={'Team'} description={'Team description'} objects={this.state.data} dir={'/app/project'}/>
+                <ContentTable title={'Team'} description={'Team description'} objects={this.state.data} dir={'/app/team-tasks'}/>
                 <TeamAddButton projectId={this.state.projectId}/>
             </React.Fragment>
         );

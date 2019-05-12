@@ -2,6 +2,7 @@ from graphene_django import DjangoObjectType
 from projects.models import Project, Team, Task, TeamMember
 from django.utils import timezone
 import graphene
+from projects.sms import sendSms, sendEmail
 
 
 class ProjectNode(DjangoObjectType):
@@ -162,6 +163,24 @@ class CreateTask(graphene.Mutation):
         except TeamMember.DoesNotExist:
             return CreateTask(ok=False, error_message="You can't create a task")
 
+class SendSmsMut(graphene.Mutation):
+    class Arguments:
+        email = graphene.String()
+        phone_number = graphene.String()
+        title = graphene.String()
+        message = graphene.String()
+        send_email = graphene.Boolean()
+        send_sms = graphene.Boolean()
+
+    status = graphene.String()
+
+    def mutate(self, info, **kwargs):
+        if sned_sms
+            send(kwargs['phone_number'], kwargs['message'])
+        if send_email
+            sendEmail(kwargs['email'], kwargs['title'], kwargs['message'])
+        return SendSmsMut(status='OK')
+
 
 class Mutation(graphene.ObjectType):
     create_project = CreateProjectMutation.Field()
@@ -169,6 +188,7 @@ class Mutation(graphene.ObjectType):
     create_team = CreateTeam.Field()
     edit_task = EditTaskMutation.Field()
     create_task = CreateTask.Field()
+    send_sms = SendSmsMut.Field()
 
 
 class Query(graphene.ObjectType):

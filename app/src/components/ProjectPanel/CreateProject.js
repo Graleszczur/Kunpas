@@ -53,7 +53,7 @@ export default class CreateProject extends Component {
             waves="light"
             disabled={!this.validateForm()}
           >
-            Create
+            Add project
           </Button>
         </form>
       </div>
