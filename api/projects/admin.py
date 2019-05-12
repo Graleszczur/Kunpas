@@ -7,7 +7,7 @@ class TeamMemberInline(admin.TabularInline):
 
 
 @admin.register(Project)
-class OrganizationAdmin(admin.ModelAdmin):
+class ProjectAdmin(admin.ModelAdmin):
     search_fields = ['name', 'owner', 'description']
     fields = ('name', 'owner', 'description')
     list_display = ('name', 'owner', 'description')
