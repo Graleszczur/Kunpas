@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import { TextInput, Button } from 'react-materialize'
+import { TextInput, Button, Textarea } from 'react-materialize'
 
 
-export default class Login extends Component {
+export default class CreateProject extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "",
-      password: ""
+      name: "",
+      description: "",
     };
   }
 
   validateForm() {
-    return this.state.username.length > 0 && this.state.password.length > 0;
+    return this.state.name.length > 0;
   }
 
   handleChange = event => {
@@ -25,27 +25,26 @@ export default class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.props.mutate({
-        variables: {password: this.state.password, username: this.state.username}
+        variables: {description: this.state.description, name: this.state.name}
       }).then(function(data) {
-        localStorage.setItem('token', data.data.tokenAuth.token)
-        window.location.reload();
+        window.location.href = '/app/projects';
       })
   }
 
   render() {
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
+        <form style={{display: 'inline-block', paddingTop: "100px"}} onSubmit={this.handleSubmit}>
           <TextInput
-            label="Username"
-            id="username"
-            value={this.state.username}
+            label="Name"
+            id="name"
+            value={this.state.name}
             onChange={this.handleChange}
           />
-          <TextInput password
-            label="Password"
-            id="password"
-            value={this.state.password}
+          <Textarea
+            label="Description"
+            id="description"
+            value={this.state.description}
             onChange={this.handleChange}
           />
           <Button
