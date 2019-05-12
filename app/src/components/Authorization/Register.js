@@ -28,7 +28,7 @@ export default class Register extends Component {
     this.props.mutate({
         variables: {password: this.state.password, username: this.state.username, email: this.state.email}
       }).then(function(data) {
-        
+
         window.location.href = '/login';
       })
   }
@@ -37,6 +37,7 @@ export default class Register extends Component {
     return (
       <div className="Login">
         <form style={{display: 'inline-block', paddingTop: "100px"}} onSubmit={this.handleSubmit}>
+          <h2>Registration</h2>
           <TextInput
             label="Username"
             id="username"
@@ -60,7 +61,7 @@ export default class Register extends Component {
             waves="light"
             disabled={!this.validateForm()}
           >
-            Login
+            Register
           </Button>
         </form>
       </div>

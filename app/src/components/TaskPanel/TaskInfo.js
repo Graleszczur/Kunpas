@@ -4,20 +4,24 @@ import {Collection, CollectionItem} from 'react-materialize'
 
 export class TaskInfo extends Component {
     render() {
+        let emo = '❌'
+        if(this.props.data.status === true){
+          emo = '✅'
+        }
         return (
-            <div style={{paddingLeft: '20%'}}>
+            <div style={{paddingLeft: '21.5%'}}>
                 <Collection>
                     <CollectionItem>
-                        {this.props.name}
+                        Name: {this.props.data.name}
                     </CollectionItem>
                     <CollectionItem style={{marginTop:'5px'}}>
-                        {this.props.description}
+                        Description: {this.props.data.description}
                     </CollectionItem>
                     <CollectionItem>
-                        {this.props.eta}
+                        Estimated date:{this.props.data.eta}
                     </CollectionItem>
                     <CollectionItem>
-                        {this.props.status}
+                        Status of task: {emo}
                     </CollectionItem>
                 </Collection>
             </div>
