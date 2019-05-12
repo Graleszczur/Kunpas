@@ -12,7 +12,7 @@ export class ProjectView extends Component {
             <React.Fragment>
                 <AppTitleBar name={'Teams'}/>
                 <UserSidePanel/>
-                <ContentTable title={'Team'} description={'Team description'} dir={'/app/project'}/>
+                <ContentTable title={'Team'} description={'Team description'} dir={'/app/team-tasks'}/>
                 <TeamAddButton/>
             </React.Fragment>
         );

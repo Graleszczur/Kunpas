@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { TextInput, Button, Textarea } from 'react-materialize'
 
 
-export default class CreateTeam extends Component {
+export default class CreateTask extends Component {
     constructor(props) {
         super(props);
 
@@ -36,7 +36,7 @@ export default class CreateTeam extends Component {
             <div className="Login">
                 <form style={{display: 'inline-block', paddingTop: "100px"}} onSubmit={this.handleSubmit}>
                     <TextInput
-                        label="Team Name"
+                        label="Task title"
                         id="name"
                         value={this.state.name}
                         onChange={this.handleChange}
@@ -52,7 +52,7 @@ export default class CreateTeam extends Component {
                         waves="light"
                         disabled={!this.validateForm()}
                     >
-                        Add team
+                        Add task
                     </Button>
                 </form>
             </div>
