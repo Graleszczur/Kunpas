@@ -118,7 +118,7 @@ class EditTaskMutation(graphene.Mutation):
         task_id = graphene.Int()
         name = graphene.String()
         description = graphene.String()
-        eta = graphene.DateTime()
+        eta = graphene.Date()
         status = graphene.Boolean()
 
     ok = graphene.Boolean()
