@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import HomeFooter from "../components/HomeFooter";
-import HomeAppBar from "../components/HomeAppBar"
-import HomeParallax from "../components/HomeParallax"
-import {Parallax} from "react-materialize";
+import HomeFooter from "../components/Home/HomeFooter";
+import HomeAppBar from "../components/Home/HomeAppBar"
 
 export class Home extends Component {
     render() {

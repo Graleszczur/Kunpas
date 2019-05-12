@@ -6,11 +6,11 @@ export class UserSidePanel extends Component {
         return (
             <SideNav>
                 <SideNavItem userView user={{
-                    background: 'https://placeimg.com/640/480/tech',
-                    image: 'https://i.imgur.com/MVdkcM6.png',
+                    background: 'https://i.imgur.com/M7rr0PP.jpg',
+                    image: 'https://i.imgur.com/YBg8z1N.jpg',
                     name: 'Bartosz Gralewski'
                 }} />
-                <SideNavItem href="/" icon="content_paste">
+                <SideNavItem href="/app/projects" icon="content_paste">
                     Projects
                 </SideNavItem>
                 <SideNavItem divider />
