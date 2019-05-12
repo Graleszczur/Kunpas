@@ -30,6 +30,7 @@ class TeamNode(DjangoObjectType):
 class TaskNode(DjangoObjectType):
     class Meta:
         model = Task
+        only_fields = ('status', 'name', 'id', 'description', 'eta')
 
 
 class TeamMemberNode(DjangoObjectType):
@@ -163,21 +164,39 @@ class CreateTask(graphene.Mutation):
 
 class SendSmsMut(graphene.Mutation):
     class Arguments:
-        email = graphene.String()
         phone_number = graphene.String()
-        title = graphene.String()
         message = graphene.String()
-        send_email = graphene.Boolean()
-        send_sms = graphene.Boolean()
 
     status = graphene.String()
 
     def mutate(self, info, **kwargs):
-        if kwargs.get('send_sms'):
-            send(kwargs['phone_number'], kwargs['message'])
-        if kwargs.get('send_email'):
-            sendEmail(kwargs['email'], kwargs['title'], kwargs['message'])
+        sendSms(kwargs['phone_number'], kwargs['message'])
         return SendSmsMut(status='OK')
+
+class SendEmailMut(graphene.Mutation):
+    class Arguments:
+        email = graphene.String()
+        title = graphene.String()
+        message = graphene.String()
+
+    status = graphene.String()
+
+    def mutate(self, info, **kwargs):
+        sendEmail(kwargs['email'], kwargs['title'], kwargs['message'])
+        return SendEmailMut(status='OK')
+
+
+class SwitchStatus(graphene.Mutation):
+    class Arguments:
+        task_id = graphene.Int()
+
+    status = graphene.String()
+
+    def mutate(self, info, **kwargs):
+        task = Task.objects.get(id=kwargs['task_id'])
+        task.status = not task.status
+        task.save()
+        return SwitchStatus(status=task.status)
 
 
 class Mutation(graphene.ObjectType):
@@ -187,6 +206,8 @@ class Mutation(graphene.ObjectType):
     edit_task = EditTaskMutation.Field()
     create_task = CreateTask.Field()
     send_sms = SendSmsMut.Field()
+    send_email = SendEmailMut.Field()
+    switch_status = SwitchStatus.Field()
 
 
 class Query(graphene.ObjectType):

@@ -39,6 +39,7 @@ export default class Login extends Component {
     return (
       <div className="Login">
         <form style={{display: 'inline-block', paddingTop: "100px"}} onSubmit={this.handleSubmit}>
+          <h2>Login</h2>
           <TextInput
             label="Username"
             id="username"
