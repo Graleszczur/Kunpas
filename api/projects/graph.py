@@ -60,7 +60,6 @@ def create_hierarchy_graph():
         pos_labels[k] = (v[0],v[1]-0.04)
     nx.draw_networkx_labels(G, pos_labels)
     plt.tight_layout()
-    print(G.nodes())
     plt.show()
     plt.savefig('graph-' + str(project.id) + '.png', format='png')
     #file = File(open('graph-' + str(project.id) + '.png', 'rb'))
@@ -99,7 +98,6 @@ def create_task_graph():
                 done_nodes.append(req_req_task.number_prefix + '-' + str(req_req_task.number))
             else:
                 todo_nodes.append(req_req_task.number_prefix + '-' + str(req_req_task.number))
-    print(done_nodes)
     G.add_edges_from(edges)
     pos = nx.planar_layout(G)
     nx.draw_networkx_nodes(G, pos, done_nodes, node_color="green", with_labels=False)

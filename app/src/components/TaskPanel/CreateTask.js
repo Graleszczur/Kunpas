@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import { TextInput, Button, Textarea } from 'react-materialize'
 
 
-export default class CreateTeam extends Component {
+export default class CreateTask extends Component {
     constructor(props) {
         super(props);
         var url = new URL(window.location.href);
-        var c = url.searchParams.get("projectId");
+        var c = url.searchParams.get("objectId");
         this.state = {
             name: "",
             description: "",
-            projectId: c,
+            teamId: c,
+            eta: ""
         };
     }
 
@@ -27,25 +28,39 @@ export default class CreateTeam extends Component {
     handleSubmit = event => {
         event.preventDefault();
         this.props.mutate({
-            variables: {projectId: this.state.projectId, name: this.state.name}
+            variables: {description: this.state.description, name: this.state.name, eta: this.state.eta, teamId: this.state.teamId}
         }).then(function(data) {
-            window.location.href = '/app/project-teams?objectId='+ data.data.createTeam.team.projectId;
-        })
+            window.location.href = '/app/task?objectId=' + data.data.createTask.task.id;
+        }).catch(function(err) {
+            alert(err);
+        });
     }
 
     render() {
         return (
             <div className="Login">
                 <form style={{display: 'inline-block', paddingTop: "100px"}} onSubmit={this.handleSubmit}>
-                  <h2>Create a Team</h2>
+                <h2> Create a Task</h2>
                     <TextInput
-                        label="Team Name"
+                        label="Task title"
                         id="name"
                         value={this.state.name}
                         onChange={this.handleChange}
                     />
+                    <Textarea
+                        label="Description"
+                        id="description"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                    />
+                    <TextInput
+                        label="ETA"
+                        id="eta"
+                        value={this.state.eta}
+                        onChange={this.handleChange}
+                    />
                     <Button
-                        type="Create"
+                        type="Login"
                         waves="light"
                         disabled={!this.validateForm()}
                     >

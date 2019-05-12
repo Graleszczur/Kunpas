@@ -14,6 +14,7 @@ class CreateUserMutation(graphene.Mutation):
         username = graphene.String()
         password = graphene.String()
         email = graphene.String()
+        phone_number = graphene.String(required=False)
 
     user = graphene.Field(UserNode)
     error = graphene.String()

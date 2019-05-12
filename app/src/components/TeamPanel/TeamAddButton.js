@@ -14,7 +14,7 @@ export class TeamAddButton extends Component {
                             className="red"
                             waves="light"
                             icon="add"
-                            onClick ={() => window.location.href = '/app/add-team'}
+                            onClick ={() => window.location.href = '/app/add-team?projectId=' + this.props.projectId}
                         />
                     </Col>
 

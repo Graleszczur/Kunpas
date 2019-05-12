@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import UserSidePanel from '../components/MainAppComponents/UserSidePanel'
+import UserSearchBar from "../components/MainAppComponents/UserSearchBar";
 import AppTitleBar from "../components/MainAppComponents/AppTitleBar";
 import ContentTable from "../components/MainAppComponents/ContentTable";
-import TeamAddButton from "../components/TeamPanel/TeamAddButton"
-import UserSearchBar from "../components/MainAppComponents/UserSearchBar";
+import TaskAddButton from "../components/TaskPanel/TaskAddButton";
 import AppListItem from "../components/MainAppComponents/AppListItem";
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 import {client} from '../index'
 
 
-const TEAM_QUERY = gql`
-  query Teams($text: String, $projectId: String!){
-    teams(text: $text, projectId: $projectId){
+const PROJECTS_QUERY = gql`
+  query Tasks($text: String, $teamId: Int!){
+    tasks(text: $text, teamId: $teamId){
       id
       name
       description
@@ -20,27 +20,28 @@ const TEAM_QUERY = gql`
   }
 `
 
-export class ProjectView extends Component {
+
+
+export class TeamTasks extends Component {
   constructor(props) {
       super(props);
       var url = new URL(window.location.href);
       var c = url.searchParams.get("objectId");
       this.state = {
           data: null,
-          query: null,
-          projectId: c,
+          query: "",
+          teamId: c,
       };
-
   }
 
   handleQuery = (queryVal) => {
       this.setState({query: queryVal});
       client.query({
-        query: TEAM_QUERY,
-        variables: {text: this.state.query, projectId: this.state.projectId}
+        query: PROJECTS_QUERY,
+        variables: {text: this.state.query, teamId: this.state.teamId}
       }).then(response =>{
         this.setState({
-          data: response.data.teams.map(team => <AppListItem key={team.id} title={team.name} description={team.description} dir={'/app/team-tasks?objectId=' + team.id} />)
+          data: response.data.tasks.map(team => <AppListItem key={team.id} title={team.name} description={team.description} dir={'/app/task?objectId=' + team.id} />)
         });
       })
   }
@@ -48,24 +49,25 @@ export class ProjectView extends Component {
 
   componentDidMount(){
     client.query({
-      query: TEAM_QUERY,
-      variables: {projectId: this.state.projectId}
+      query: PROJECTS_QUERY,
+      variables: {text: this.state.query, teamId: this.state.teamId}
     }).then(response =>{
       this.setState({
-        data: response.data.teams.map(team => <AppListItem key={team.id} title={team.name} description={team.description} dir={'/app/team-tasks?objectId=' + team.id} />)
+        data: response.data.tasks.map(team => <AppListItem key={team.id} title={team.name} description={team.description} dir={'/app/task?objectId=' + team.id} />)
       });
     })
   }
     render() {
         return (
             <React.Fragment>
-                <AppTitleBar name={'Teams'}/>
+                <AppTitleBar name={'Tasks'}/>
                 <UserSearchBar handleQuery={this.handleQuery}/>
                 <UserSidePanel/>
-                <ContentTable title={'Team'} description={'Team description'} objects={this.state.data} dir={'/app/team-tasks'}/>
-                <TeamAddButton projectId={this.state.projectId}/>
+                <ContentTable title={'Task'} description={'very very hard'} objects={this.state.data} dir={'/app/team-tasks'}/>
+                <TaskAddButton objectId={this.state.teamId}/>
             </React.Fragment>
+
         );
     }
 }
-export default ProjectView;
+export default TeamTasks;
